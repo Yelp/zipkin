@@ -529,4 +529,34 @@ object Zipkin extends Build {
     tracegen, web, anormDB, query,
     receiverScribe, zookeeper
   )
+
+  lazy val yelp_collector = Project(
+    id = "yelp-collector",
+    base = file("yelp-collector"),
+    settings = defaultSettings
+  ).settings(
+    libraryDependencies ++= Seq(
+      finagle("zipkin"),
+      finagle("stats"),
+      twitterServer
+    )
+  ).dependsOn(
+    tracegen, web, anormDB, query,
+    receiverScribe, zookeeper
+  )
+
+  lazy val yelp_query = Project(
+    id = "yelp-query",
+    base = file("yelp-query"),
+    settings = defaultSettings
+  ).settings(
+    libraryDependencies ++= Seq(
+      finagle("zipkin"),
+      finagle("stats"),
+      twitterServer
+    )
+  ).dependsOn(
+    tracegen, web, anormDB, query,
+    receiverScribe, zookeeper
+  )
 }
